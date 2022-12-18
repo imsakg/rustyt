@@ -5,5 +5,5 @@ RUN cargo build --release
 
 # vimagick/youtube-dl contains ffmpeg, youtube-dl and other dependencies.
 FROM vimagick/youtube-dl
-COPY --from=0 /app /app
-ENTRYPOINT ["/app/target/release/rustyt"]
+COPY --from=0 /src/target/release/rustyt /app
+ENTRYPOINT ["/app"]
