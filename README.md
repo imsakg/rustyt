@@ -18,8 +18,13 @@ Docker containering the whole project. So, you can run it with docker whereever 
 
 ### GCP part of IT
 
-I also want to make it related with GCP. So, I decided to integrate it with GCP. I'll use [GCP Cloud Runner](https://cloud.google.com/run) on that step cause this service is serverless so you don't need to build or maintain server. As a developer the price of hosting matters for me. Luckily, we have free tier on Cloud Runner. You can check the limits from price section on 
-[website](https://cloud.google.com/run/pricing).
+I also want to make it related with GCP. So, I decided to integrate it with GCP. I'll use [GCP Cloud Runner](https://cloud.google.com/run) on that step cause this service is serverless so you don't need to build or maintain server and it **scales** easily!
+
+#### Pricing
+
+As a developers the price of the hosting matters for us. Luckily, we have free tier on Cloud Runner. You can check the limits from price section on [website](https://cloud.google.com/run/pricing).
+
+**Note** : Most of senerios are covered by free tier. But, if you want to use it for production, you should check the pricing.
 
 ---
 
