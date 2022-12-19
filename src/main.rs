@@ -11,10 +11,14 @@ mod utils;
 
 use std::fs;
 use std::io::prelude::*;
+use std::io::{self, BufRead, Read, Write};
 use std::net::TcpListener;
 use std::net::TcpStream;
+use std::process::Command;
 use std::thread;
 use std::time::Duration;
+
+const WORKERS: usize = 4;
 
 fn main() -> Result<()> {
     let args = Cli::parse();
@@ -22,7 +26,7 @@ fn main() -> Result<()> {
     let listener = TcpListener::bind(format!("{}:{}", &args.host, &args.port)).unwrap();
     println!("Listening on {}:{}", &args.host, &args.port);
 
-    let pool = ThreadPool::new(4);
+    let pool = ThreadPool::new(WORKERS);
 
     for stream in listener.incoming() {
         let stream = stream.unwrap();
@@ -62,4 +66,24 @@ fn handle_connection(mut stream: TcpStream) {
 
     stream.write_all(response.as_bytes()).unwrap();
     stream.flush().unwrap();
+}
+
+fn download_video_extract_audio(id: String) -> Result<()> {
+    let url = format!("https://www.youtube.com/watch?v={}", id);
+
+    /* ytdl <---> ffmpeg <---> http handler */
+    // exec command ytdl
+    // exec command ffmpeg
+
+    let ytdl = Command::new("youtube-dl")
+        .arg("--output")
+        .arg(format!("{}.%(ext)s", id))
+        .arg(url)
+        .arg("-o-")
+        .output()
+        .expect("failed to execute process");
+
+    // !TODO
+
+    Ok(())
 }
